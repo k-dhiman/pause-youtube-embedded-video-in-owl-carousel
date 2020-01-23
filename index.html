@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>slider with youtube video embedded</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+</head>
+<body>
+    <div id="slider" class="owl-carousel owl-theme owl-loaded">
+        <div id="video"></div>
+        <div id="video1"></div>
+        <div id="video2"></div>
+    </div>
+        
+
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+
+    <script>
+        var player, playing = false;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('video', {
+                height: '320',
+                width: '100%',
+                videoId: 'RWeFOe2Cs4k',
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+
+            player = new YT.Player('video', {
+                height: '320',
+                width: '100%',
+                videoId: 'RWeFOe2Cs2k',
+                events: {
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerStateChange(event) {
+
+        if (event.data == YT.PlayerState.PLAYING) {
+            alert('video started');
+            $('#slider').trigger('stop.owl.autoplay');
+            playing = true;
+            }
+
+        else if(event.data == YT.PlayerState.PAUSED){
+                alert('video paused');
+                $('#slider').trigger('play.owl.autoplay');
+                playing = false;
+        }
+    }
+
+
+    $(document).ready(function(){
+        $('#slider').owlCarousel({
+            nav: true,
+            margin: 10,
+            autoplay: true,
+            responsive: {
+                0:{
+                    items:1
+                },
+                600:{
+                    items:3
+                },
+                1000:{
+                    items:5
+                }
+            }
+        });
+    });
+    
+    </script>
+</body>
+</html>
